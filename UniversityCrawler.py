@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+
 from Crawler import url2str,start
 import bs4
 def LinkList(UniversityUrl):
@@ -145,12 +146,9 @@ if __name__ == "__main__":
     UniversityUrl = 'https://www.applysquare.com/zh-cn/institute/drexel/'
     UniversityUrl = 'https://www.applysquare.com/zh-cn/institute/missouri/'
     UniversityUrl = 'https://www.applysquare.com/zh-cn/institute/unh/'
-    
-    UniversityStart(UniversityUrl)    
-
-
-
-
+    from Zinfo_universityURL_List import List
+    for i in List:
+        UniversityStart(i)
     
 
 
