@@ -68,7 +68,7 @@ if __name__ == "__main__":
 #    UpdateMysqlUniversityInfo(url)
 #    import sys
 #    sys.exit()
-    from UrlList import List
+    from Zinfo_universityURL_List import List
     x=0
     for i in List:
         x+=1
