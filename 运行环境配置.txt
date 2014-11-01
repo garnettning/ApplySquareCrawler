@@ -1,0 +1,8 @@
+1.安装python 2.7.8、eazyinstall、pip工具
+	去官网下2.7.8的安装包，再装ez_setup，再把script加入环境变量，再easy_install pip
+2.安装bs4
+	pip install beautifulsoup4
+3.Mysql
+	wamp5或者官网下
+4.安装Python-Mysql
+	 官网下安装包

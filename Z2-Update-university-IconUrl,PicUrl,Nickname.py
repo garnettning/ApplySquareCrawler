@@ -1,9 +1,5 @@
 import urllib2
-def url2str(url):
-    request = urllib2.Request(url)  
-    request.add_header('Cookie','sessionid=5okf24xbu774tecwn2f4p5u0mlkqubv6;')  
-    response = urllib2.urlopen(request).read()
-    return response
+from Crawler import url2str
 
 import MySQLdb
 def c(item):
@@ -25,12 +21,14 @@ def UpdateMysqlUniversityInfo(url):
     IconUrl=html.find(lambda tag:tag.name=='img' and tag.attrs.has_key('height')).attrs['src']
     print IconUrl
 
+    PicUrl=html.find(lambda tag:tag.name=='img' and tag.attrs.has_key('class') and tag.attrs['class'][0]=='collapsed').attrs['src']
+    print PicUrl
+    
     Nickname = url[url.find(u'institute/')+10:-1]
     print Nickname
 
     UniversityName = html.find('h1',{'class':'ellipsis'}).contents[1].text.strip()
     print UniversityName
-
     import Config
     conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
     cur=conn.cursor()
@@ -42,7 +40,7 @@ def UpdateMysqlUniversityInfo(url):
         result = cur.fetchone()
         UniversityId = str(result[0])
         print UniversityId
-        UpdateUniversitystr = "UPDATE university SET IconUrl = %s ,Nickname = %s ,ApplysquareUrl = %s WHERE Id = %s LIMIT 1"%(c(IconUrl),c(Nickname),c(url),c(UniversityId))
+        UpdateUniversitystr = "UPDATE university SET IconUrl = %s ,PicUrl = %s ,Nickname = %s ,ApplysquareUrl = %s WHERE Id = %s LIMIT 1"%(c(IconUrl),c(PicUrl),c(Nickname),c(url),c(UniversityId))
         cur.execute(UpdateUniversitystr)
         print 'Update OK'
         conn.commit()
@@ -50,7 +48,7 @@ def UpdateMysqlUniversityInfo(url):
         conn.close()
         return True
     elif count == 0:
-        AddUniversityStr = "INSERT INTO university(Name,IconUrl,Nickname,ApplysquareUrl)VALUES(%s,%s,%s,%s)"%(c(UniversityName),c(IconUrl),c(Nickname),c(url))
+        AddUniversityStr = "INSERT INTO university(Name,IconUrl,PicUrl,Nickname,ApplysquareUrl)VALUES(%s,%s,%s,%s,%s)"%(c(UniversityName),c(IconUrl),c(PicUrl),c(Nickname),c(url))
         cur.execute(AddUniversityStr)
         print 'Creat OK'
         conn.commit()
@@ -66,7 +64,10 @@ def UpdateMysqlUniversityInfo(url):
     
 
 if __name__ == "__main__":
-    
+#    url = 'https://www.applysquare.com/zh-cn/institute/cmu/'
+#    UpdateMysqlUniversityInfo(url)
+#    import sys
+#    sys.exit()
     from UrlList import List
     x=0
     for i in List:

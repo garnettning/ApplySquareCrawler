@@ -4,7 +4,7 @@ import Config
 import urllib2
 def url2str(url):
     request = urllib2.Request(url)  
-    request.add_header('Cookie','sessionid=5okf24xbu774tecwn2f4p5u0mlkqubv6;')  
+    request.add_header('Cookie','sessionid=%s;'%Config.sessionid)  
     response = urllib2.urlopen(request).read()
     return response
 
@@ -37,55 +37,55 @@ def start(url):
         soup = bs4.BeautifulSoup(htmlstr)
         html = soup.html
 
-        #print '\n\n\n'
-        #print '***************************************************************'
-        #print '************************Program Table**************************'
-        #print '***************************************************************'
+        print '\n\n\n'
+        print '***************************************************************'
+        print '************************Program Table**************************'
+        print '***************************************************************'
         #UniversityName
-        #print '\n'+'UniversityName: '
+        print '\n'+'UniversityName: '
         UniversityName = html.find('h2',{'class':'ellipsis'}).contents[1].text.strip()
-        #print UniversityName
+        print UniversityName
 
         #ProgramName
-        #print '\n'+'ProgramName: '
+        print '\n'+'ProgramName: '
         ProgramName = html.find('h1',{'class':'ellipsis'}).contents[1].text.strip()
-        #print ProgramName
+        print ProgramName
         
         #SchoolName
-        #print '\n'+'SchoolName: '
+        print '\n'+'SchoolName: '
         if html.find('dt',text=u'学院'):
             SchoolName = html.find('dt',text=u'学院').findNextSibling('dd').text.strip()
-            #print SchoolName
+            print SchoolName
         else:
             SchoolName = None
-            #print "N/A"
+            print "N/A"
 
         #InstituteName
-        #print '\n'+'InstituteName: '
+        print '\n'+'InstituteName: '
         if html.find('dt',text=u'系'):
             InstituteName = html.find('dt',text=u'系').findNextSibling('dd').text.strip()
-            #print InstituteName
+            print InstituteName
         else:
             InstituteName = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n\n\n'
-        #print '***************************************************************'
-        #print '***********************Program Instance************************'
-        #print '***************************************************************'
+        print '\n\n\n'
+        print '***************************************************************'
+        print '***********************Program Instance************************'
+        print '***************************************************************'
 
         #Year
-        #print '\n'+'Year: '
+        print '\n'+'Year: '
         if html.find('dt',text=u'学期'):
             str1 = soup.html.find('dt',text=u'学期').findNextSibling('dd').text.encode("utf-8")
             Year = filter(str.isdigit,str1)
-            #print Year
+            print Year
         else:
             Year = None
-            #print "N/A"
+            print "N/A"
         
         #Season
-        #print '\n'+'Season: '
+        print '\n'+'Season: '
         if html.find('dt',text=u'学期'):
             str1 = soup.html.find('dt',text=u'学期').findNextSibling('dd').text.encode("utf-8")
             Season = str1.strip()[5:]
@@ -99,108 +99,91 @@ def start(url):
                 Season = '4'
             else:
                 Season = '0'
-            #print Season
+            print Season
         else:
             Season = None
-            #print "N/A"
-
-        #DegreeType
-        #print '\n'+'DegreeType: '
-        DegreeType = '0'
-        list1=['under']
-        for i in list1:
-            if ProgramName.lower().find(i)>=0:
-                DegreeType = '1'
-        list2=['master','ms','m.s','me','m.e','mba','sdm','ma','mph','lm','m.p','mps','mfa','am']
-        for i in list2:
-            if ProgramName.lower().find(i)>=0 or ProgramName.lower().find('m')==0:
-                DegreeType = '2'
-        list3=['ph.d','phd','dba','jd','doctor','scd','edd','jsd']
-        for i in list3:
-            if ProgramName.lower().find(i)>=0:
-                DegreeType = '3'
-        #print DegreeType
+            print "N/A"
 
         #DegreeName
-        #print '\n'+'DegreeName: '
+        print '\n'+'DegreeName: '
         if html.find('dt',text=u'学位'):
             DegreeName = html.find('dt',text=u'学位').findNextSibling('dd').text.strip()
-            #print DegreeName
+            print DegreeName
         else:
             DegreeName = None
-            #print "N/A"
+            print "N/A"
 
         #DegreeLink
-        #print '\n'+'DegreeLink: '
+        print '\n'+'DegreeLink: '
         if html.find('dt',text=u'学位'):
             DegreeLink = html.find('dt',text=u'链接').findNextSibling('dd').text.strip()
-            #print DegreeLink
+            print DegreeLink
         else:
             DegreeLink = None
-            #print "N/A"
+            print "N/A"
 
          #ApplicationLink
-        #print '\n'+'ApplicationLink: '
+        print '\n'+'ApplicationLink: '
         if html.find('dt',text=u'网申登录链接'):
             ApplicationLink = html.find('dt',text=u'网申登录链接').findNextSibling('ul').li.a.text.strip()
-            #print ApplicationLink
+            print ApplicationLink
         else:
             ApplicationLink = None
-            #print "N/A"
+            print "N/A"
 
         #ContactName
-        #print '\n'+'ContactName: '
+        print '\n'+'ContactName: '
         if html.find('ul',{'class':'list-unstyled'}):
             if html.find('ul',{'class':'list-unstyled'}).find(lambda tag: tag.name=='li' and len(tag)==1):
                 ContactName = html.find('ul',{'class':'list-unstyled'}).find(lambda tag: tag.name=='li' and len(tag)==1).text.strip()
-                #print ContactName
+                print ContactName
             else:
                 ContactName = None
-                #print "N/A"
+                print "N/A"
         else:
             ContactName = None
-            #print "N/A"
+            print "N/A"
 
         #Email
-        #print '\n'+'Email: '
+        print '\n'+'Email: '
         if html.find('i',{'class':'icon-envelope-alt icon-fixed-width'}):
             Email = html.find('i',{'class':'icon-envelope-alt icon-fixed-width'}).nextSibling.string.strip()
-            #print Email
+            print Email
         else:
             Email = None
-            #print "N/A"
+            print "N/A"
 
         #PhoneNumber
-        #print '\n'+'PhoneNumber: '
+        print '\n'+'PhoneNumber: '
         if html.find('i',{'class':'icon-phone icon-fixed-width'}):
             PhoneNumber = html.find('i',{'class':'icon-phone icon-fixed-width'}).nextSibling.string.strip()
-            #print PhoneNumber
+            print PhoneNumber
         else:
             PhoneNumber = None
-            #print "N/A"
+            print "N/A"
             
-        #print '\n\n\n'
-        #print '***************************************************************'
-        #print '**********************DeadLine Data****************************'
-        #print '***************************************************************'
+        print '\n\n\n'
+        print '***************************************************************'
+        print '**********************DeadLine Data****************************'
+        print '***************************************************************'
        
         #DeadlineStatus
-        #print '\n'+'DeadlineStatus: '
+        print '\n'+'DeadlineStatus: '
         listall = html.find('div',{'class':'bg-title'}).findNextSibling('div',{'class':'box'}).div.dl.findAll('dd',{'class':None})
         DeadlineStatus = str(len(listall))
-        #print DeadlineStatus
+        print DeadlineStatus
 
         #DeadlineDate
-        #print '\n'+'DeadlineDate: '
+        print '\n'+'DeadlineDate: '
         if DeadlineStatus == '1':
             DeadlineDate = listall[0].contents[1].text.strip()
-            #print DeadlineDate
+            print DeadlineDate
         else:
             DeadlineDate = None
-            #print "N/A"
+            print "N/A"
 
         #DeadlineString(JsonArray)
-        #print '\n'+'DeadlineString(JsonArray): '
+        print '\n'+'DeadlineString(JsonArray): '
         if not DeadlineStatus == 0:
             Deadlinelist = []
             for item in listall:
@@ -214,47 +197,47 @@ def start(url):
                 Deadlinelist+=[copy.deepcopy(dic)]
             import json
             DeadlineString = json.dumps(Deadlinelist);
-            #print DeadlineString
+            print DeadlineString
         else:
             DeadlineString = None
-            #print "N/A"
+            print "N/A"
 
         #DeadlineOringin
-        #print '\n'+'DeadlineOringin: '
+        print '\n'+'DeadlineOringin: '
         if html.find('div',{'class':'bg-title'}).findNextSibling('div',{'class':'box'}).div.find('dt',text=u'描述'):
             DeadlineOringin = html.find('div',{'class':'bg-title'}).findNextSibling('div',{'class':'box'}).div.find('dt',text=u'描述').findNextSibling('dd').text.strip()
-            #print DeadlineOringin
+            print DeadlineOringin
         else:
             DeadlineOringin = None
-            #print "N/A"
+            print "N/A"
 
         #DeadlineLink
-        #print '\n'+'DeadlineLink: '
+        print '\n'+'DeadlineLink: '
         if html.find('div',{'class':'bg-title'}).findNextSibling('div',{'class':'box'}).div.find('dt',text=u'链接'):
             DeadlineLink = html.find('div',{'class':'bg-title'}).findNextSibling('div',{'class':'box'}).div.find('dt',text=u'链接').findNextSibling('dd').text.strip()
-            #print DeadlineLink
+            print DeadlineLink
         else:
             DeadlineLink = None
-            #print "N/A"
+            print "N/A"
         
 
       
-        #print '\n\n\n'
-        #print '***************************************************************'
-        #print '******************Application Requirement**********************'
-        #print '***************************************************************'
+        print '\n\n\n'
+        print '***************************************************************'
+        print '******************Application Requirement**********************'
+        print '***************************************************************'
 
         #ApplicationFeeHas
-        #print '\n'+'ApplicationFeeHas: '
+        print '\n'+'ApplicationFeeHas: '
         box_req_content = get_req_content(html,u'申请费')
         if box_req_content:
             ApplicationFeeHas = True
         else:
             ApplicationFeeHas = False
-        #print ApplicationFeeHas
+        print ApplicationFeeHas
         
         #ApplicationFee
-        #print '\n'+'ApplicationFee: '
+        print '\n'+'ApplicationFee: '
         box_req_content = get_req_content(html,u'申请费')
         if box_req_content:
             tempstr = box_req_content.find(lambda tag: tag.name=='span' and tag.text.find(u'申请费')>=0)
@@ -263,13 +246,13 @@ def start(url):
                 ApplicationFee = filter(str.isdigit,spanstr.encode("utf-8"))
             else:
                 ApplicationFee = '0'
-            #print ApplicationFee
+            print ApplicationFee
         else:
             ApplicationFee = None
-            #print "N/A"
+            print "N/A"
 
         #ApplicationFeeType
-        #print '\n'+'ApplicationFeeType: '
+        print '\n'+'ApplicationFeeType: '
         box_req_content = get_req_content(html,u'申请费')
         if box_req_content:
             tempstr = box_req_content.find(lambda tag: tag.name=='span' and tag.text.find(u'申请费')>=0)
@@ -277,19 +260,19 @@ def start(url):
                 spanstr = box_req_content.find(lambda tag: tag.name=='span' and tag.text.find(u'申请费')>=0).findNextSibling('span').text.strip()
                 if spanstr.find(u'美元')>=0:
                     ApplicationFeeType = '1'
-                    #print ApplicationFeeType
+                    print ApplicationFeeType
                 else:  
                     ApplicationFeeType = None
-                    #print "N/A"
+                    print "N/A"
             else:
                 ApplicationFeeType = None
-                #print "N/A"    
+                print "N/A"    
         else:
             ApplicationFeeType = None
-            #print "N/A"
+            print "N/A"
 
         #ApplicationFeeOrigin
-        #print '\n'+'ApplicationFeeOrigin: '
+        print '\n'+'ApplicationFeeOrigin: '
         box_req_content = get_req_content(html,u'申请费')
         if box_req_content:
             flag = False
@@ -300,123 +283,123 @@ def start(url):
                         ApplicationFeeOrigin = i.string.strip()
             if flag:
                 ApplicationFeeOrigin = ApplicationFeeOrigin
-                #print ApplicationFeeOrigin
+                print ApplicationFeeOrigin
             else:
                 ApplicationFeeOrigin = None
-                #print "N/A"
+                print "N/A"
         else:
             ApplicationFeeOrigin = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************ToeflIBT**********************'
+        print '\n'
+        print '******************ToeflIBT**********************'
 
         #ToeflHas
-        #print '\n'+'ToeflHas: '
+        print '\n'+'ToeflHas: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             ToeflHas = True
         else:
             ToeflHas = False
-        #print ToeflHas
+        print ToeflHas
         
         #ToeflIBTTotal
-        #print '\n'+'ToeflIBTTotal: '
+        print '\n'+'ToeflIBTTotal: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'总分')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 ToeflIBTTotal = filter(str.isdigit,contentstr.encode("utf-8"))
-                #print ToeflIBTTotal
+                print ToeflIBTTotal
             else:
                 ToeflIBTTotal = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTTotal = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTReading
-        #print '\n'+'ToeflIBTReading: '
+        print '\n'+'ToeflIBTReading: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'阅读')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 ToeflIBTReading = filter(str.isdigit,contentstr.encode("utf-8"))
-                #print ToeflIBTReading
+                print ToeflIBTReading
             else:
                 ToeflIBTReading = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTReading = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTListening
-        #print '\n'+'ToeflIBTListening: '
+        print '\n'+'ToeflIBTListening: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'听力')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 ToeflIBTListening = filter(str.isdigit,contentstr.encode("utf-8"))
-                #print ToeflIBTListening
+                print ToeflIBTListening
             else:
                 ToeflIBTListening = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTListening = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTSpeaking
-        #print '\n'+'ToeflIBTSpeaking: '
+        print '\n'+'ToeflIBTSpeaking: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'口语')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 ToeflIBTSpeaking = filter(str.isdigit,contentstr.encode("utf-8"))
-                #print ToeflIBTSpeaking
+                print ToeflIBTSpeaking
             else:
                 ToeflIBTSpeaking = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTSpeaking = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTWriting
-        #print '\n'+'ToeflIBTWriting: '
+        print '\n'+'ToeflIBTWriting: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'写作')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 ToeflIBTWriting = filter(str.isdigit,contentstr.encode("utf-8"))
-                #print ToeflIBTWriting
+                print ToeflIBTWriting
             else:
                 ToeflIBTWriting = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTWriting = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTOrigin
-        #print '\n'+'ToeflIBTOrigin: '
+        print '\n'+'ToeflIBTOrigin: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 ToeflIBTOrigin = Has_content.string.strip()
-                #print ToeflIBTOrigin
+                print ToeflIBTOrigin
             else:
                 ToeflIBTOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ToeflIBTOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #ToeflIBTNote
-        #print '\n'+'ToeflIBTNote: '
+        print '\n'+'ToeflIBTNote: '
         box_req_content = get_req_content(html,u'托福')
         if box_req_content:
             flag = False
@@ -427,123 +410,123 @@ def start(url):
                         ToeflIBTNote = i.string.strip()
             if flag:
                 ToeflIBTNote = ToeflIBTNote
-                #print ToeflIBTNote
+                print ToeflIBTNote
             else:
                 ToeflIBTNote = None
-                #print "N/A"
+                print "N/A"
         else:
             ToeflIBTNote = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************Ielts**********************'
+        print '\n'
+        print '******************Ielts**********************'
 
         #IeltsHas
-        #print '\n'+'IeltsHas: '
+        print '\n'+'IeltsHas: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             IeltsHas = True
         else:
             IeltsHas = False
-        #print IeltsHas
+        print IeltsHas
         
         #IeltsTotal
-        #print '\n'+'IeltsTotal: '
+        print '\n'+'IeltsTotal: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'总分')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 IeltsTotal = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print IeltsTotal
+                print IeltsTotal
             else:
                 IeltsTotal = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsTotal = None
-            #print "N/A"
+            print "N/A"
         
         #IeltsReading
-        #print '\n'+'IeltsReading: '
+        print '\n'+'IeltsReading: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'阅读')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 IeltsReading = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print IeltsReading
+                print IeltsReading
             else:
                 IeltsReading = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsReading = None
-            #print "N/A"
+            print "N/A"
 
         #IeltsListening
-        #print '\n'+'IeltsListening: '
+        print '\n'+'IeltsListening: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'听力')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 IeltsListening = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print IeltsListening
+                print IeltsListening
             else:
                 IeltsListening = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsListening = None
-            #print "N/A"
+            print "N/A"
 
         #IeltsSpeaking
-        #print '\n'+'IeltsSpeaking: '
+        print '\n'+'IeltsSpeaking: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'口语')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 IeltsSpeaking = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print IeltsSpeaking
+                print IeltsSpeaking
             else:
                 IeltsSpeaking = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsSpeaking = None
-            #print "N/A"
+            print "N/A"
 
         #IeltsWriting
-        #print '\n'+'IeltsWriting: '
+        print '\n'+'IeltsWriting: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'写作')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 IeltsWriting = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print IeltsWriting
+                print IeltsWriting
             else:
                 IeltsWriting = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsWriting = None
-            #print "N/A"
+            print "N/A"
 
         #IeltsOrigin
-        #print '\n'+'IeltsOrigin: '
+        print '\n'+'IeltsOrigin: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 IeltsOrigin = Has_content.string.strip()
-                #print IeltsOrigin
+                print IeltsOrigin
             else:
                 IeltsOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             IeltsOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #IeltsNote
-        #print '\n'+'IeltsNote: '
+        print '\n'+'IeltsNote: '
         box_req_content = get_req_content(html,u'雅思')
         if box_req_content:
             flag = False
@@ -554,584 +537,584 @@ def start(url):
                         IeltsNote = i.string.strip()
             if flag:
                 IeltsNote = IeltsNote
-                #print IeltsNote
+                print IeltsNote
             else:
                 IeltsNote = None
-                #print "N/A"
+                print "N/A"
         else:
             IeltsNote = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************GRE**********************'
+        print '\n'
+        print '******************GRE**********************'
 
         #GreHas
-        #print '\n'+'GreHas: '
+        print '\n'+'GreHas: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             GreHas = True
         else:
             GreHas = False
-        #print GreHas
+        print GreHas
         
         #GreTotal
-        #print '\n'+'GreTotal: '
+        print '\n'+'GreTotal: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'总分')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 GreTotal = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print GreTotal
+                print GreTotal
             else:
                 GreTotal = None
-                #print "N/A"
+                print "N/A"
         else:
             GreTotal = None
-            #print "N/A"
+            print "N/A"
             
         #GreVerbal
-        #print '\n'+'GreVerbal: '
+        print '\n'+'GreVerbal: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'Verbal')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 GreVerbal = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print GreVerbal
+                print GreVerbal
             else:
                 GreVerbal = None
-                #print "N/A" 
+                print "N/A" 
         else:
             GreVerbal = None
-            #print "N/A"
+            print "N/A"
 
         #GreQuantitative
-        #print '\n'+'GreQuantitative: '
+        print '\n'+'GreQuantitative: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'Quantitative')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 GreQuantitative = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print GreQuantitative
+                print GreQuantitative
             else:
                 GreQuantitative = None
-                #print "N/A" 
+                print "N/A" 
         else:
             GreQuantitative = None
-            #print "N/A"
+            print "N/A"
 
         #GreWriting
-        #print '\n'+'GreWriting: '
+        print '\n'+'GreWriting: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'Writing')>=0)
             if Has_content:
                 contentstr = Has_content.findNextSibling('span').text.strip()[0:10]
                 GreWriting = filter(lambda x:str.isdigit(x) or x=='.',contentstr.encode("utf-8"))
-                #print GreWriting
+                print GreWriting
             else:
                 GreWriting = None
-                #print "N/A" 
+                print "N/A" 
         else:
             GreWriting = None
-            #print "N/A"
+            print "N/A"
 
         #GreOrigin
-        #print '\n'+'GreOrigin: '
+        print '\n'+'GreOrigin: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1 and len(tag.text)>50)
             if Has_content:
                 GreOrigin = Has_content.string.strip()
-                #print GreOrigin
+                print GreOrigin
             else:
                 GreOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             GreOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #GreNote
-        #print '\n'+'GreNote: '
+        print '\n'+'GreNote: '
         box_req_content = get_req_content(html,u'GRE')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 GreNote = Has_content.string.strip()
-                #print GreNote
+                print GreNote
             else:
                 GreNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             GreNote = None
-            #print "N/A"
+            print "N/A"
             
-        #print '\n'
-        #print '******************DegreeRequire**********************'
+        print '\n'
+        print '******************DegreeRequire**********************'
         
         #DegreeRequireHas
-        #print '\n'+'DegreeRequireHas: '
+        print '\n'+'DegreeRequireHas: '
         box_req_content = get_req_content(html,u'学历要求')
         if box_req_content:
             DegreeRequireHas = True
         else:
             DegreeRequireHas = False
-        #print DegreeRequireHas
+        print DegreeRequireHas
         
         #DegreeRequire
-        #print '\n'+'DegreeRequire: '
+        print '\n'+'DegreeRequire: '
         box_req_content = get_req_content(html,u'学历要求')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='dt' and tag.text.find(u'学历要求')>=0)
             if Has_content:
                 DegreeRequire = Has_content.findNextSibling('dd').text.strip()
-                #print DegreeRequire
+                print DegreeRequire
             else:
                 DegreeRequire = None
-                #print "N/A" 
+                print "N/A" 
         else:
             DegreeRequire = None
-            #print "N/A"
+            print "N/A"
 
         #CourseRequire
-        #print '\n'+'CourseRequire: '
+        print '\n'+'CourseRequire: '
         box_req_content = get_req_content(html,u'学历要求')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='dt' and tag.text.find(u'课程要求')>=0)
             if Has_content:
                 CourseRequire = Has_content.findNextSibling('dd').text.strip()
-                #print CourseRequire
+                print CourseRequire
             else:
                 CourseRequire = None
-                #print "N/A" 
+                print "N/A" 
         else:
             CourseRequire = None
-            #print "N/A"
+            print "N/A"
         
         #MajorRequire
-        #print '\n'+'MajorRequire: '
+        print '\n'+'MajorRequire: '
         box_req_content = get_req_content(html,u'学历要求')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='dt' and tag.text.find(u'专业要求')>=0)
             if Has_content:
                 MajorRequire = Has_content.findNextSibling('dd').text.strip()
-                #print MajorRequire
+                print MajorRequire
             else:
                 MajorRequire = None
-                #print "N/A" 
+                print "N/A" 
         else:
             MajorRequire = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************Transcript**********************'
+        print '\n'
+        print '******************Transcript**********************'
 
         #TranscriptHas
-        #print '\n'+'TranscriptHas: '
+        print '\n'+'TranscriptHas: '
         box_req_content = get_req_content(html,u'成绩单')
         if box_req_content:
             TranscriptHas = True
         else:
             TranscriptHas = False
-        #print TranscriptHas
+        print TranscriptHas
         
         #TranscriptNote
-        #print '\n'+'TranscriptNote: '
+        print '\n'+'TranscriptNote: '
         box_req_content = get_req_content(html,u'成绩单')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 TranscriptNote = Has_content.findNextSibling('p').text.strip()
-                #print TranscriptNote
+                print TranscriptNote
             else:
                 TranscriptNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             TranscriptNote = None
-            #print "N/A"
+            print "N/A"
 
         #TranscriptOringin
-        #print '\n'+'TranscriptOringin: '
+        print '\n'+'TranscriptOringin: '
         box_req_content = get_req_content(html,u'成绩单')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'描述')>=0)
             if Has_content:
                 TranscriptOringin = Has_content.findNextSibling('p').text.strip()
-                #print TranscriptOringin
+                print TranscriptOringin
             else:
                 TranscriptOringin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             TranscriptOringin = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************PS**********************'
+        print '\n'
+        print '******************PS**********************'
 
         #PsHas
-        #print '\n'+'PsHas: '
+        print '\n'+'PsHas: '
         box_req_content = get_req_content(html,u'PS')
         if box_req_content:
             PsHas = True
         else:
             PsHas = False
-        #print PsHas
+        print PsHas
 
         #PsOrigin
-        #print '\n'+'PsOrigin: '
+        print '\n'+'PsOrigin: '
         box_req_content = get_req_content(html,u'PS')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 PsOrigin = Has_content.findNextSibling('p').text.strip()
-                #print PsOrigin
+                print PsOrigin
             else:
                 PsOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             PsOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #PsNote
-        #print '\n'+'PsNote: '
+        print '\n'+'PsNote: '
         box_req_content = get_req_content(html,u'PS')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 PsNote = Has_content.string.strip()
-                #print PsNote
+                print PsNote
             else:
                 PsNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             PsNote = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************Resume**********************'
+        print '\n'
+        print '******************Resume**********************'
 
         #ResumeHas
-        #print '\n'+'ResumeHas: '
+        print '\n'+'ResumeHas: '
         box_req_content = get_req_content(html,u'简历')
         if box_req_content:
             ResumeHas = True
         else:
             ResumeHas = False
-        #print ResumeHas
+        print ResumeHas
 
         #ResumeOrigin
-        #print '\n'+'ResumeOrigin: '
+        print '\n'+'ResumeOrigin: '
         box_req_content = get_req_content(html,u'简历')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 ResumeOrigin = Has_content.findNextSibling('p').text.strip()
-                #print ResumeOrigin
+                print ResumeOrigin
             else:
                 ResumeOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ResumeOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #ResumeNote
-        #print '\n'+'ResumeNote: '
+        print '\n'+'ResumeNote: '
         box_req_content = get_req_content(html,u'简历')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 ResumeNote = Has_content.string.strip()
-                #print ResumeNote
+                print ResumeNote
             else:
                 ResumeNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ResumeNote = None
-            #print "N/A"
+            print "N/A"
 
        
-        #print '\n'
-        #print '******************Recommendation**********************'
+        print '\n'
+        print '******************Recommendation**********************'
 
         #RecommendationHas
-        #print '\n'+'RecommendationHas: '
+        print '\n'+'RecommendationHas: '
         box_req_content = get_req_content(html,u'推荐信')
         if box_req_content:
             RecommendationHas = True
         else:
             RecommendationHas = False
-        #print RecommendationHas
+        print RecommendationHas
 
         #RecommendationNum
-        #print '\n'+'RecommendationNum: '
+        print '\n'+'RecommendationNum: '
         box_req_content = get_req_content(html,u'推荐信')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'数量')>=0)
             if Has_content:
                 RecommendationNum = Has_content.findNextSibling('p').text.strip()
-                #print RecommendationNum
+                print RecommendationNum
             else:
                 RecommendationNum = None
-                #print "N/A" 
+                print "N/A" 
         else:
             RecommendationNum = None
-            #print "N/A"
+            print "N/A"
 
         #RecommendationOrigin
-        #print '\n'+'RecommendationOrigin: '
+        print '\n'+'RecommendationOrigin: '
         box_req_content = get_req_content(html,u'推荐信')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 RecommendationOrigin = Has_content.findNextSibling('p').text.strip()
-                #print RecommendationOrigin
+                print RecommendationOrigin
             else:
                 RecommendationOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             RecommendationOrigin = None
-            #print "N/A"
+            print "N/A"
 
 
 
-        #print '\n'
-        #print '******************WorkExp**********************'
+        print '\n'
+        print '******************WorkExp**********************'
 
         #WorkExpHas
-        #print '\n'+'WorkExpHas: '
+        print '\n'+'WorkExpHas: '
         box_req_content = get_req_content(html,u'Work Experience')
         if box_req_content:
             WorkExpHas = True
         else:
             WorkExpHas = False
-        #print WorkExpHas
+        print WorkExpHas
 
         #WorkExpOrigin
-        #print '\n'+'WorkExpOrigin: '
+        print '\n'+'WorkExpOrigin: '
         box_req_content = get_req_content(html,u'Work Experience')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 WorkExpOrigin = Has_content.findNextSibling('p').text.strip()
-                #print WorkExpOrigin
+                print WorkExpOrigin
             else:
                 WorkExpOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             WorkExpOrigin = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n'
-        #print '******************ProjectExp**********************'
+        print '\n'
+        print '******************ProjectExp**********************'
 
         #ProjectExpHas
-        #print '\n'+'ProjectExpHas: '
+        print '\n'+'ProjectExpHas: '
         box_req_content = get_req_content(html,u'project')
         if box_req_content:
             ProjectExpHas = True
         else:
             ProjectExpHas = False
-        #print ProjectExpHas
+        print ProjectExpHas
 
         #ProjectExpOrigin
-        #print '\n'+'ProjectExpOrigin: '
+        print '\n'+'ProjectExpOrigin: '
         box_req_content = get_req_content(html,u'project')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 ProjectExpOrigin = Has_content.findNextSibling('p').text.strip()
-                #print ProjectExpOrigin
+                print ProjectExpOrigin
             else:
                 ProjectExpOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ProjectExpOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #SATorACTHas
-        #print '\n'+'SATorACTHas: '
+        print '\n'+'SATorACTHas: '
         box_req_content = get_req_content(html,u'SAT and ACT')
         if box_req_content:
             SATorACTHas = True
         else:
             SATorACTHas = False
-        #print SATorACTHas
+        print SATorACTHas
 
         #SATorACTOrigin
-        #print '\n'+'SATorACTOrigin: '
+        print '\n'+'SATorACTOrigin: '
         box_req_content = get_req_content(html,u'SAT and ACT')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 SATorACTOrigin = Has_content.findNextSibling('p').text.strip()
-                #print SATorACTOrigin
+                print SATorACTOrigin
             else:
                 SATorACTOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             SATorACTOrigin = None
-            #print "N/A"
+            print "N/A"
             
         
         #SATsubjecttestsHas
-        #print '\n'+'SATsubjecttestsHas: '
+        print '\n'+'SATsubjecttestsHas: '
         box_req_content = get_req_content(html,u'SAT subject tests')
         if box_req_content:
             SATsubjecttestsHas = True
         else:
             SATsubjecttestsHas = False
-        #print SATsubjecttestsHas
+        print SATsubjecttestsHas
 
         #SATsubjecttestsOrigin
-        #print '\n'+'SATsubjecttestsOrigin: '
+        print '\n'+'SATsubjecttestsOrigin: '
         box_req_content = get_req_content(html,u'SAT subject tests')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 SATsubjecttestsOrigin = Has_content.findNextSibling('p').text.strip()
-                #print SATsubjecttestsOrigin
+                print SATsubjecttestsOrigin
             else:
                 SATsubjecttestsOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             SATsubjecttestsOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #APExamsHas
-        #print '\n'+'APExamsHas: '
+        print '\n'+'APExamsHas: '
         box_req_content = get_req_content(html,u'Advanced Placement (AP) exams')
         if box_req_content:
             APExamsHas = True
         else:
             APExamsHas = False
-        #print APExamsHas
+        print APExamsHas
 
         #APExamsOrigin
-        #print '\n'+'APExamsOrigin: '
+        print '\n'+'APExamsOrigin: '
         box_req_content = get_req_content(html,u'Advanced Placement (AP) exams')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 APExamsOrigin = Has_content.findNextSibling('p').text.strip()
-                #print APExamsOrigin
+                print APExamsOrigin
             else:
                 APExamsOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             APExamsOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #WritingSampleHas
-        #print '\n'+'WritingSampleHas: '
+        print '\n'+'WritingSampleHas: '
         box_req_content = get_req_content(html,u'Writing Sample')
         if box_req_content:
             WritingSampleHas = True
         else:
             WritingSampleHas = False
-        #print WritingSampleHas
+        print WritingSampleHas
 
         #WritingSampleNote
-        #print '\n'+'WritingSampleNote: '
+        print '\n'+'WritingSampleNote: '
         box_req_content = get_req_content(html,u'Writing Sample')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 WritingSampleNote = Has_content.string.strip()
-                #print WritingSampleNote
+                print WritingSampleNote
             else:
                 WritingSampleNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             WritingSampleNote = None
-            #print "N/A"
+            print "N/A"
 
         #TeacherEvaluationsHas
-        #print '\n'+'TeacherEvaluationsHas: '
+        print '\n'+'TeacherEvaluationsHas: '
         box_req_content = get_req_content(html,u'Teacher Evaluations')
         if box_req_content:
             TeacherEvaluationsHas = True
         else:
             TeacherEvaluationsHas = False
-        #print TeacherEvaluationsHas
+        print TeacherEvaluationsHas
 
         #TeacherEvaluationsNote
-        #print '\n'+'TeacherEvaluationsNote: '
+        print '\n'+'TeacherEvaluationsNote: '
         box_req_content = get_req_content(html,u'Teacher Evaluations')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 TeacherEvaluationsNote = Has_content.string.strip()
-                #print TeacherEvaluationsNote
+                print TeacherEvaluationsNote
             else:
                 TeacherEvaluationsNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             TeacherEvaluationsNote = None
-            #print "N/A"
+            print "N/A"
         
         #SchoolReportHas
-        #print '\n'+'SchoolReportHas: '
+        print '\n'+'SchoolReportHas: '
         box_req_content = get_req_content(html,u'学校报告')
         if box_req_content:
             SchoolReportHas = True
         else:
             SchoolReportHas = False
-        #print SchoolReportHas
+        print SchoolReportHas
 
         #SchoolReportNote
-        #print '\n'+'SchoolReportNote: '
+        print '\n'+'SchoolReportNote: '
         box_req_content = get_req_content(html,u'学校报告')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='p' and len(tag)==1)
             if Has_content:
                 SchoolReportNote = Has_content.string.strip()
-                #print SchoolReportNote
+                print SchoolReportNote
             else:
                 SchoolReportNote = None
-                #print "N/A" 
+                print "N/A" 
         else:
             SchoolReportNote = None
-            #print "N/A"
+            print "N/A"
 
 
         
         #ScoreChoiceHas
-        #print '\n'+'ScoreChoiceHas: '
+        print '\n'+'ScoreChoiceHas: '
         box_req_content = get_req_content(html,u'Score Choice')
         if box_req_content:
             ScoreChoiceHas = True
         else:
             ScoreChoiceHas = False
-        #print ScoreChoiceHas
+        print ScoreChoiceHas
 
         #ScoreChoiceOrigin
-        #print '\n'+'ScoreChoiceOrigin: '
+        print '\n'+'ScoreChoiceOrigin: '
         box_req_content = get_req_content(html,u'Score Choice')
         if box_req_content:
             Has_content = box_req_content.find(lambda tag: tag.name=='strong' and tag.text.find(u'项目特别要求')>=0)
             if Has_content:
                 ScoreChoiceOrigin = Has_content.findNextSibling('p').text.strip()
-                #print ScoreChoiceOrigin
+                print ScoreChoiceOrigin
             else:
                 ScoreChoiceOrigin = None
-                #print "N/A" 
+                print "N/A" 
         else:
             ScoreChoiceOrigin = None
-            #print "N/A"
+            print "N/A"
 
         #InternationalStudentNoticeHas
-        #print '\n'+'InternationalStudentNoticeHas: '
+        print '\n'+'InternationalStudentNoticeHas: '
         box_req_content = get_req_content(html,u'国际学生注意事项')
         if box_req_content:
             InternationalStudentNoticeHas = True
         else:
             InternationalStudentNoticeHas = False
-        #print InternationalStudentNoticeHas
+        print InternationalStudentNoticeHas
 
         #InternationalStudentNoticeOrigin
-        #print '\n'+'InternationalStudentNoticeOrigin: '
+        print '\n'+'InternationalStudentNoticeOrigin: '
         box_req_content = get_req_content(html,u'国际学生注意事项')
         if box_req_content:
             flag = False
@@ -1142,36 +1125,36 @@ def start(url):
                         InternationalStudentNoticeOrigin = i.string.strip()
             if flag:
                 InternationalStudentNoticeOrigin = InternationalStudentNoticeOrigin
-                #print InternationalStudentNoticeOrigin
+                print InternationalStudentNoticeOrigin
             else:
                 InternationalStudentNoticeOrigin = None
-                #print "N/A"
+                print "N/A"
         else:
             InternationalStudentNoticeOrigin = None
-            #print "N/A"
+            print "N/A"
 
-        #print '\n\n\n'
-        #print '***************************************************************'
-        #print '**************************Others*******************************'
-        #print '***************************************************************'
+        print '\n\n\n'
+        print '***************************************************************'
+        print '**************************Others*******************************'
+        print '***************************************************************'
 
         #DataFrom
-        #print '\n'+'DataFrom: '
+        print '\n'+'DataFrom: '
         DataFrom = 'ApplySquare'
-        #print DataFrom
+        print DataFrom
 
         #DataLink
-        #print '\n'+'DataLink: '
+        print '\n'+'DataLink: '
         DataLink = url
-        #print DataLink
+        print DataLink
     except:
         print 'Error in Analysising Webpage'
         return False
 
-    #print '\n\n\n'
-    #print '###############################################################'
-    #print '#########################   Mysql   ###########################'
-    #print '###############################################################'
+    print '\n\n\n'
+    print '###############################################################'
+    print '#########################   Mysql   ###########################'
+    print '###############################################################'
 
     import MySQLdb
     try:        
@@ -1188,11 +1171,11 @@ def start(url):
             count=cur.execute(CheckStr)
             if count == 0: #没有的话就插入一条programinstance
                 str2mysql = "INSERT INTO `haile`.`programinstance` VALUES (NULL, \
-                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, \
                 %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, Null);"\
-                %(c(ProgramId),c(Year),c(Season),c(DegreeType),c(DegreeName),c(DegreeLink),c(ApplicationLink),c(ContactName),c(Email),c(PhoneNumber),\
+                %(c(ProgramId),c(Year),c(Season),c(DegreeName),c(DegreeLink),c(ApplicationLink),c(ContactName),c(Email),c(PhoneNumber),\
                 c(DeadlineStatus),c(DeadlineDate),c(DeadlineString),c(DeadlineOringin),c(DeadlineLink),c(ApplicationFeeHas),c(ApplicationFee),c(ApplicationFeeType),c(ApplicationFeeOrigin),c(ToeflHas),\
                 c(ToeflIBTTotal),c(ToeflIBTReading),c(ToeflIBTListening),c(ToeflIBTSpeaking),c(ToeflIBTWriting),c(ToeflIBTOrigin),c(ToeflIBTNote),c(IeltsHas),c(IeltsTotal),c(IeltsReading),\
                 c(IeltsListening),c(IeltsSpeaking),c(IeltsWriting),c(IeltsOrigin),c(IeltsNote),c(GreHas),c(GreTotal),c(GreVerbal),c(GreQuantitative),c(GreWriting),\
@@ -1216,5 +1199,5 @@ def start(url):
         return False
             
 if __name__ == "__main__":
-    url='https://www.applysquare.com/zh-cn/program/p5m2xwrd2pup5rwg/'
+    url='https://www.applysquare.com/zh-cn/program/p5m2w70y5n3ahy2n/'
     print start(url)
