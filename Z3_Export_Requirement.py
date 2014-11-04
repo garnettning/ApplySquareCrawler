@@ -59,7 +59,7 @@ for i in result:
 
 jsonStr = json.dumps(Listall);
 
-file_object = open('requirements.json', 'w')
+file_object = open('ProgramInstanceRequirements.json', 'w')
 file_object.write(jsonStr)
 file_object.close()
 

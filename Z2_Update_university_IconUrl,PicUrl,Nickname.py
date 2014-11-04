@@ -1,4 +1,3 @@
-import urllib2
 from Crawler import url2str
 
 import MySQLdb
