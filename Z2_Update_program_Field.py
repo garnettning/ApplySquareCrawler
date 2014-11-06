@@ -28,6 +28,11 @@ UPDATE program SET Field = NULL,SecondaryField = NULL
 count=cur.execute(str1)
 print count
 
+
+#####################################################
+##############         Engineering 1     ############
+#####################################################
+
 #Aerospace / Aeronautical / Astronautical 101
 print 'Aerospace / Aeronautical / Astronautical 101'
 FieldNum = 101
@@ -35,6 +40,7 @@ ConditionStr = '''(
 Name LIKE '%Aeros%'
 OR Name LIKE '%Aeron%'
 OR Name LIKE '%Astron%'
+OR Name LIKE '%space%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -42,11 +48,15 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Biological / Agricultural Engineering 102'
 FieldNum = 102
 ConditionStr = '''(
+(
 Name LIKE '%Engineering%' AND
 (
 Name LIKE '%Agricul%'
 OR Name LIKE '%Biological%'
 )
+)
+OR Name LIKE '%agronom%'
+OR Name LIKE '%Agricultural%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -68,6 +78,7 @@ ConditionStr = '''(
 Name LIKE '%Engineering%' AND
 (
 Name LIKE '%Chemical%'
+OR Name LIKE '%petroleum%'
 )
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
@@ -76,10 +87,11 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Civil Engineering 105'
 FieldNum = 105
 ConditionStr = '''(
-Name LIKE '%Engineering%' AND
-(
-Name LIKE '%Civil%'
-)
+(Name LIKE '%Engineering%' AND Name LIKE '%Civil%')
+OR Name LIKE '%Structu%'
+OR Name LIKE '%Transportation%'
+OR Name LIKE '%Civil system%'
+OR Name LIKE '%building%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -101,6 +113,7 @@ ConditionStr = '''(
 Name LIKE '%Electrical%'
 OR Name LIKE '%Electronic%'
 OR Name LIKE '%Communication%'
+OR Name LIKE '%optical%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -108,10 +121,8 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Environmental Engineering 108'
 FieldNum = 108
 ConditionStr = '''(
-Name LIKE '%Engineering%' AND
-(
 Name LIKE '%Environment%'
-)
+OR Name LIKE '%Energy%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -122,7 +133,8 @@ ConditionStr = '''(
 Name LIKE '%Industrial%'
 OR Name LIKE '%Automotive%'
 OR Name LIKE '%Manufacturing%'
-
+OR Name LIKE '%quality%'
+OR (Name LIKE '%system%' AND Name LIKE '%Engineering%')
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -131,6 +143,7 @@ print 'Materials 110'
 FieldNum = 110
 ConditionStr = '''(
 Name LIKE '%Material%'
+OR Name LIKE '%nano%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -152,11 +165,16 @@ OR Name LIKE '%Radiological%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
+#####################################################
+##############          Science 2        ############
+#####################################################
+
 #Statistics 201
 print 'Statistics 201'
 FieldNum = 201
 ConditionStr = '''(
 Name LIKE '%Statistic%'
+OR Name LIKE '%quantitative%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -169,9 +187,16 @@ OR Name LIKE '%Neuroscience%'
 OR Name LIKE '%Molecu%'
 OR Name LIKE '%Cell%'
 OR Name LIKE '%Organism%'
-OR Name LIKE '%Genetics%'
+OR Name LIKE '%entomology%'
+OR Name LIKE '%Gene%'
 OR Name LIKE '%Immunology%'
 OR Name LIKE '%Ecology%'
+OR Name LIKE '%plant%'
+OR Name LIKE '%animal%'
+OR Name LIKE '%wildlife%'
+OR Name LIKE '%zoology%'
+OR Name LIKE '%botany%'
+OR Name LIKE '%horticultur%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -197,6 +222,8 @@ OR Name LIKE '%Embedded%'
 OR Name LIKE '%Graphics%'
 OR Name LIKE '%Machine Learning%'
 OR Name LIKE '%Data Science%'
+OR Name LIKE '%neural system%'
+OR Name LIKE '%computational%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -208,6 +235,16 @@ Name LIKE '%Earth%'
 OR Name LIKE '%Geo%'
 OR Name LIKE '%Planet%'
 OR Name LIKE '%Meteorology%'
+OR Name LIKE '%Environmental%'
+OR Name LIKE '%Forest%'
+OR Name LIKE '%ocean%'
+OR Name LIKE '%marine%'
+OR Name LIKE '%atmosph%'
+OR Name LIKE '%soil%'
+OR Name LIKE '%Natur%'
+OR Name LIKE '%sustainab%'
+OR Name LIKE '%water%'
+OR Name LIKE '%hydrology%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -216,6 +253,7 @@ print 'Mathematics 206'
 FieldNum = 206
 ConditionStr = '''(
 Name LIKE '%Math%'
+OR Name LIKE '%computation%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -223,8 +261,12 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Physics 207'
 FieldNum = 207
 ConditionStr = '''(
-Name LIKE '%Physics%'
-OR Name LIKE '%Astronomy%'
+Name LIKE '%Physic%'
+OR Name LIKE '%Astronom%'
+OR Name LIKE '%fluid%'
+OR Name LIKE '%optics%'
+OR Name LIKE '%photoni%'
+OR Name LIKE '%acoustics%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -244,11 +286,18 @@ Name LIKE '%Philosophy%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
+
+#####################################################
+##############          Business 3       ############
+#####################################################
+
 #Accounting 301
 print 'Accounting 301'
 FieldNum = 301
 ConditionStr = '''(
 Name LIKE '%Account%'
+OR Name LIKE '%Acct%'
+OR Name LIKE '%tax%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -301,6 +350,10 @@ print 'Management 307'
 FieldNum = 307
 ConditionStr = '''(
 Name LIKE '%Management%'
+OR Name LIKE '%strategy%'
+OR Name LIKE '%Organization%'
+OR Name LIKE '%decision%'
+OR Name LIKE '%Leadership%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -334,6 +387,8 @@ print 'MBA 313'
 FieldNum = 313
 ConditionStr = '''(
 Name LIKE '%MBA%'
+OR Name LIKE '%Business Administration%'
+OR Name LIKE '%M.B.A%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -344,6 +399,11 @@ ConditionStr = '''(
 Name LIKE '%Human Resource%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
+
+
+#####################################################
+############        Social Sciences 4      ##########
+#####################################################
 
 #Economics 402
 print 'Economics 402'
@@ -358,6 +418,9 @@ print 'English 403'
 FieldNum = 403
 ConditionStr = '''(
 Name LIKE '%English%'
+OR Name LIKE '%TESOL%'
+OR Name LIKE '%writing%'
+OR Name LIKE '%rhetoric%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -365,7 +428,9 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'History 404'
 FieldNum = 404
 ConditionStr = '''(
-Name LIKE '%History%'
+Name LIKE '%Histor%'
+OR Name LIKE '%archaeolog%'
+OR Name LIKE '%egyptology%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -373,7 +438,9 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Psychology 405'
 FieldNum = 405
 ConditionStr = '''(
-Name LIKE '%Psychology%'
+Name LIKE '%Psycholog%'
+OR Name LIKE '%brain%'
+OR Name LIKE '%cognit%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -383,6 +450,9 @@ FieldNum = 406
 ConditionStr = '''(
 Name LIKE '%Politic%'
 OR Name LIKE '%Policy%'
+OR Name LIKE '%Government%'
+OR Name LIKE '%security%'
+OR Name LIKE '%international relation%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -391,6 +461,32 @@ print 'Sociology 407'
 FieldNum = 407
 ConditionStr = '''(
 Name LIKE '%Soci%'
+OR Name LIKE '%Policy%'
+OR Name LIKE '%Asia%'
+OR Name LIKE '%East%'
+OR Name LIKE '%Africa%'
+OR Name LIKE '%russian%'
+OR Name LIKE '%cultur%'
+OR Name LIKE '%german%'
+OR Name LIKE '%roman%'
+OR Name LIKE '%family%'
+OR Name LIKE '%Arab%'
+OR Name LIKE '%medieval%'
+OR Name LIKE '%Feminist%'
+OR Name LIKE '%American Studies%'
+OR Name LIKE '%hispanic%'
+OR Name LIKE '%indian%'
+OR Name LIKE '%population%'
+OR Name LIKE '%demograph%'
+OR Name LIKE '%jewish%'
+OR Name LIKE '%civilization%'
+OR Name LIKE '%Humanit%'
+OR Name LIKE '%ethnic%'
+OR Name LIKE '%gender%'
+OR Name LIKE '%french%'
+OR Name LIKE '%women%'
+OR (Name LIKE '%latin%' AND Name LIKE '%america%')
+OR(Name LIKE '%Regional%' AND Name LIKE '%stud%')
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -400,6 +496,13 @@ FieldNum = 408
 ConditionStr = '''(
 Name LIKE '%Affairs%'
 OR Name LIKE '%MPA%'
+OR Name LIKE '%Urban%'
+OR Name LIKE '%City%'
+OR Name LIKE '%estate%'
+OR Name LIKE '%MPP%'
+OR Name LIKE '%MSW%'
+OR Name LIKE '%public Administrat%'
+OR(Name LIKE '%Regional%' AND Name NOT LIKE '%stud%')
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -407,7 +510,8 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Anthropology 409'
 FieldNum = 409
 ConditionStr = '''(
-Name LIKE '%Anthropology%'
+Name LIKE '%Anthropolog%'
+OR Name LIKE '%folklore%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -425,6 +529,8 @@ print 'Education 411'
 FieldNum = 411
 ConditionStr = '''(
 Name LIKE '%Education%'
+OR Name LIKE '%child%'
+OR Name LIKE '%teach%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -432,7 +538,11 @@ UpdateDoubleField(FieldNum,ConditionStr)
 print 'Religion 412'
 FieldNum = 412
 ConditionStr = '''(
-Name LIKE '%Religion%'
+Name LIKE '%Relig%'
+OR Name LIKE '%biblical%'
+OR Name LIKE '%pastoral%'
+OR Name LIKE '%divinity%'
+OR Name LIKE '%theology%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -441,8 +551,43 @@ print 'Linguistics 413'
 FieldNum = 413
 ConditionStr = '''(
 Name LIKE '%Linguistic%'
+OR Name LIKE '%language%'
+OR Name LIKE '%chinese%'
+OR Name LIKE '%japanese%'
+OR Name LIKE '%spanish%'
+OR Name LIKE '%italian%'
+OR Name LIKE '%portuguese%'
+OR Name LIKE '%translat%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
+
+#Literature 414
+print 'Literature 414'
+FieldNum = 414
+ConditionStr = '''(
+Name LIKE '%Literature%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+#Classic 415
+print 'Classic 415'
+FieldNum = 415
+ConditionStr = '''(
+Name LIKE '%Classic%'
+OR Name LIKE '%greek%'
+OR(Name LIKE '%latin%' AND Name NOT LIKE '%america%')
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+#Criminology 416
+print 'Criminology 416'
+FieldNum = 416
+ConditionStr = '''(
+Name LIKE '%Crim%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+
 
 #Fine Arts 5
 print 'Fine Arts 5'
@@ -458,11 +603,22 @@ OR Name LIKE '%Drawing%'
 OR Name LIKE '%Photography%'
 OR Name LIKE '%Printmaking%'
 OR Name LIKE '%Sculpture%'
-OR Name LIKE '%Literature%'
-OR Name LIKE '%Architecture%'
+OR Name LIKE '%Architectur%'
 OR Name LIKE '%Design%'
 OR Name LIKE '%Art%'
+OR Name LIKE '%advertis%'
+OR Name LIKE '%media%'
 OR Name LIKE '%MFA%'
+OR Name LIKE '%theatre%'
+OR Name LIKE '%drama%'
+OR Name LIKE '%MARch%'
+OR Name LIKE '%compos%'
+OR Name LIKE '%Film%'
+OR Name LIKE '%cinema%'
+OR Name LIKE '%jazz%'
+OR Name LIKE '%conduct%'
+OR Name LIKE '%music%'
+OR Name LIKE '%performance%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -473,6 +629,15 @@ ConditionStr = '''(
 Name LIKE '%Health%'
 OR Name LIKE '%Epidemiology%'
 OR Name LIKE '%Nutrition%'
+OR Name LIKE '%MPH%'
+OR Name LIKE '%Food%'
+OR Name LIKE '%disease%'
+OR Name LIKE '%democracy%'
+OR Name LIKE '%recreation%'
+OR Name LIKE '%epidemiolog%'
+OR Name LIKE '%exercise%'
+OR Name LIKE '%kinesiology%'
+OR Name LIKE '%dairy%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -485,6 +650,8 @@ OR Name LIKE '%Legal%'
 OR Name LIKE '%JD%'
 OR Name LIKE '%JSD%'
 OR Name LIKE '%LLM%'
+OR Name LIKE '%resolution%'
+OR Name LIKE '%judicial%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
@@ -493,20 +660,68 @@ print 'Medical 10'
 FieldNum = 10
 ConditionStr = '''(
 Name LIKE '%Medicine%'
-OR Name LIKE '%Pharmacology%'
+OR Name LIKE '%Pharma%'
 OR Name LIKE '%Toxicology%'
 OR Name LIKE '%Medical%'
 OR Name LIKE '%Immunology%'
 OR Name LIKE '%Pathology%'
+OR Name LIKE '%nurs%'
+OR Name LIKE '%virolog%'
+OR Name LIKE '%endocrinology%'
+OR Name LIKE '%physiology%'
+OR Name LIKE '%counseling%'
+OR Name LIKE '%md%'
+OR Name LIKE '%therapy%'
+OR Name LIKE '%clinical%'
+OR Name LIKE '%rehabilitation%'
 )'''
 UpdateDoubleField(FieldNum,ConditionStr)
 
+#####################################################
+###############           Other         #############
+#####################################################
 
+#EngineeringOthers 199
+print 'EngineeringOthers 199'
+FieldNum = 199
+ConditionStr = '''(
+Name LIKE '%Engineering%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
 
+#ScienceOthers 299
+print 'ScienceOthers 299'
+FieldNum = 299
+ConditionStr = '''(
+Name LIKE '%Science%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+#BusinessOthers 399
+print 'BusinessOthers 399'
+FieldNum = 399
+ConditionStr = '''(
+Name LIKE '%Business%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+#SocialOthers 499
+print 'SocialOthers 499'
+FieldNum = 499
+ConditionStr = '''(
+Name LIKE '%Social%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
+
+#Undergraduate -1
+print 'Undergraduate -1'
+FieldNum = -1
+ConditionStr = '''(
+Name LIKE '%Undergraduate%'
+)'''
+UpdateDoubleField(FieldNum,ConditionStr)
 
 conn.commit()
 cur.close()
 conn.close()
-import sys
-sys.exit()
 
