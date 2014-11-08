@@ -31,7 +31,6 @@ def UpdateMysqlUniversityInfo(url):
     import Config
     conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
     cur=conn.cursor()
-    cur.execute("SET NAMES utf8")
 
     FindUniversityIdStr="SELECT Id FROM university WHERE Name=%s"%c(UniversityName)
     count=cur.execute(FindUniversityIdStr)

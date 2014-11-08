@@ -4,7 +4,6 @@ import Config
 conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
 cur=conn.cursor()
 
-
 #Clean programDegreeType
 print 'Clean programDegreeType'
 str1 = '''

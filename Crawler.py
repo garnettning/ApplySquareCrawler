@@ -1164,7 +1164,6 @@ def start(url):
         if ProgramId:
             conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
             cur=conn.cursor()
-            cur.execute("SET NAMES utf8")
             #检查有没有重复的programinstance
             #CheckStr = 'SELECT Id FROM programinstance WHERE Id = %s AND Year = %s AND Season = %s'%(c(ProgramId),c(Year),c(Season))
             CheckStr = 'SELECT Id FROM programinstance WHERE DataLink = %s'%c(DataLink)

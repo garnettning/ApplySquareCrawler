@@ -1,3 +1,6 @@
+import os
+os.system("pause")
+
 import Config
 import MySQLdb
 conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
