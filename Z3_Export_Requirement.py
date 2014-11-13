@@ -16,7 +16,7 @@ RecommendationHas,RecommendationNum,RecommendationOrigin,WorkExpHas,WorkExpOrigi
 SATorACTHas,SATorACTOrigin,SATsubjecttestsHas,SATsubjecttestsOrigin,APExamsHas,APExamsOrigin,WritingSampleHas,WritingSampleNote,\
 TeacherEvaluationsHas,TeacherEvaluationsNote,SchoolReportHas,SchoolReportNote,ScoreChoiceHas,ScoreChoiceOrigin,\
 InternationalStudentNoticeHas,InternationalStudentNoticeOrigin,Id \
-FROM programinstance "
+FROM programinstance"
 
 cur.execute(str1)
 result = cur.fetchall()
@@ -28,7 +28,7 @@ for i in result:
         #'ApplicationFeeType':i[2],'ApplicationFeeOrigin':i[3],
         'ToeflHas':i[4],'ToeflIBTTotal':i[5],
         #'ToeflIBTReading':i[6],'ToeflIBTListening':i[7],'ToeflIBTSpeaking':i[8],'ToeflIBTWriting':i[9],'ToeflIBTOrigin':i[10],'ToeflIBTNote':i[11],
-        'IeltsHas':str(i[12]),'IeltsTotal':str(i[13]),
+        'IeltsHas':i[12],'IeltsTotal':str(i[13]),
         #'IeltsReading':str(i[14]),'IeltsListening':str(i[15]),'IeltsSpeaking':str(i[16]),'IeltsWriting':str(i[17]),'IeltsOrigin':i[18],'IeltsNote':i[19],
         'GreHas':i[20],'GreTotal':i[21],
         #'GreVerbal':i[22],'GreQuantitative':i[23],'GreWriting':str(i[24]),'GreOrigin':i[25],'GreNote':i[26],'DegreeRequireHas':i[27],'DegreeRequire':i[28],'CourseRequire':i[29],'MajorRequire':i[30],

@@ -12,4 +12,4 @@ db = 'haile'
 charset = 'utf8'
 
 #ApplySquareCookie
-sessionid = '5cv4uzkm5scz8x1jbh3apgurmb7j6npo'
+sessionid = 'kf6rnbhaeb50aye5oi9d4jy5en64mw9p'

@@ -23,7 +23,7 @@ def UpdateMysqlUniversityInfo(url):
     PicUrl=html.find(lambda tag:tag.name=='img' and tag.attrs.has_key('class') and tag.attrs['class'][0]=='collapsed').attrs['src']
     print PicUrl
     
-    Nickname = url[url.find(u'institute/')+10:-1]
+    Nickname = url[url.find(u'institute/')+10:-2]
     print Nickname
 
     UniversityName = html.find('h1',{'class':'ellipsis'}).contents[1].text.strip()
@@ -62,11 +62,15 @@ def UpdateMysqlUniversityInfo(url):
     
 
 if __name__ == "__main__":
-#    url = 'https://www.applysquare.com/zh-cn/institute/cmu/'
-#    UpdateMysqlUniversityInfo(url)
-#    import sys
-#    sys.exit()
-    from Zinfo_universityURL_List import List
+
+    #USNews
+    #LiberalArts
+    
+    filename = 'Zinfo_'+'LiberalArts'+'_List.txt'
+    file_object = open(filename)
+    List = file_object.readlines()
+    file_object.close()
+    
     x=0
     for i in List:
         x+=1

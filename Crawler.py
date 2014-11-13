@@ -1198,5 +1198,5 @@ def start(url):
         return False
             
 if __name__ == "__main__":
-    url='https://www.applysquare.com/zh-cn/program/p5m2w70y5n3ahy2n/'
+    url='https://www.applysquare.com/zh-cn/program/p5m2wa5a2s0m6zyv/'
     print start(url)
