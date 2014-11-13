@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from Crawler import url2str
 
 import MySQLdb
@@ -28,6 +29,30 @@ def UpdateMysqlUniversityInfo(url):
 
     UniversityName = html.find('h1',{'class':'ellipsis'}).contents[1].text.strip()
     print UniversityName
+
+    Description = None
+    ChineseName = None
+    flag = html.find('div',{'class':'box-content'})
+    if flag:
+        temp = flag.find('div',{'class':'js-autocollapse-content'})
+        if not temp:
+            temp = flag
+        Description = temp.text.strip()
+        print Description
+        
+        temp = Description[:Description.find(u'（')].strip()
+        if len(temp)>15:
+            temp = Description[:Description.find(u'(')].strip()
+            if len(temp)>15:
+                temp = Description[:Description.find(u'，')].strip()
+                if len(temp)>15:
+                    temp = Description[:Description.find(u',')].strip()
+                    if len(temp)>15:
+                        temp = None
+        ChineseName = temp
+        print ChineseName
+
+    
     import Config
     conn=MySQLdb.connect(host=Config.host,user=Config.user,passwd=Config.passwd,port=Config.port,db=Config.db,charset=Config.charset)
     cur=conn.cursor()
@@ -38,7 +63,7 @@ def UpdateMysqlUniversityInfo(url):
         result = cur.fetchone()
         UniversityId = str(result[0])
         print UniversityId
-        UpdateUniversitystr = "UPDATE university SET IconUrl = %s ,PicUrl = %s ,Nickname = %s ,ApplysquareUrl = %s WHERE Id = %s LIMIT 1"%(c(IconUrl),c(PicUrl),c(Nickname),c(url),c(UniversityId))
+        UpdateUniversitystr = "UPDATE university SET IconUrl = %s ,PicUrl = %s ,Nickname = %s ,ApplysquareUrl = %s ,Description = %s ,ChineseName = %s WHERE Id = %s LIMIT 1"%(c(IconUrl),c(PicUrl),c(Nickname),c(url),c(Description),c(ChineseName),c(UniversityId))
         cur.execute(UpdateUniversitystr)
         print 'Update OK'
         conn.commit()
@@ -46,7 +71,7 @@ def UpdateMysqlUniversityInfo(url):
         conn.close()
         return True
     elif count == 0:
-        AddUniversityStr = "INSERT INTO university(Name,IconUrl,PicUrl,Nickname,ApplysquareUrl)VALUES(%s,%s,%s,%s,%s)"%(c(UniversityName),c(IconUrl),c(PicUrl),c(Nickname),c(url))
+        AddUniversityStr = "INSERT INTO university(Name,IconUrl,PicUrl,Nickname,ApplysquareUrl,Description,ChineseName)VALUES(%s,%s,%s,%s,%s,%s,%s)"%(c(UniversityName),c(IconUrl),c(PicUrl),c(Nickname),c(url),c(Description),c(ChineseName))
         cur.execute(AddUniversityStr)
         print 'Creat OK'
         conn.commit()
