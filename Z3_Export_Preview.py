@@ -25,7 +25,7 @@ for i in result:
         'Timestamp':str(i[10]),
     }
     Listall.append(dic)
-jsonStr = json.dumps(Listall);
+jsonStr = json.dumps(Listall,separators=(',',':'));
 
 file_object = open('ProgramInstancePreview.json', 'w')
 file_object.write(jsonStr)

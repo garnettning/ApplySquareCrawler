@@ -90,16 +90,29 @@ if __name__ == "__main__":
 
     #USNews
     #LiberalArts
+    #QS
+    #TIMES
+    #usnews_school_engineering
+    #usnews_school_law
+    #usnews_school_business
+    #usnews_school_medical_primary_care
+    #usnews_school_medical_research
+    #usnews_school_fine_arts
+
+    #Alluniversity
     
-    filename = 'Zinfo_'+'LiberalArts'+'_List.txt'
+    filename = 'Zinfo_'+'Alluniversity'+'_List.txt'
     file_object = open(filename)
     List = file_object.readlines()
     file_object.close()
-    
+    print len(List)
     x=0
+    
     for i in List:
-        x+=1
-        print '\n******* No.%d ******'%x
-        print 'Link = '+i
-        UpdateMysqlUniversityInfo(i)
+        if not ((not i.find('jp.kyoto-u.ac')>1) and (not i.find('nl.leidenuniv')>1) and (not i.find('humanmedicine.msu')>1)):
+            x+=1
+            print '\n******* No.%d ******'%x
+            print 'Link = '+i
+            UpdateMysqlUniversityInfo(i)
+
     

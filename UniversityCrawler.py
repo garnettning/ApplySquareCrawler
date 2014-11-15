@@ -16,16 +16,17 @@ def LinkList(UniversityUrl):
 
 def UniversityStart(UniversityUrl):
     List = LinkList(UniversityUrl)
+    num = len(List)
     print '***************************************************************'
     print '*******      University - All program -Mysql      *************'
     print '***************************************************************'
-    print 'There are %d links'%len(List)
+    print 'There are %d links'%num
     print 'Start!'
     FailedUrllist=[]
     x=0
     for i in List:
         x+=1
-        print '\n******* No.%d ******'%x
+        print '\n*******  No.%d  Total: %d   %s'%(x,num,UniversityUrl[44:-10])
         print 'Link = '+i
         print 'Hard Working...'
         flag = start(i)
@@ -48,14 +49,33 @@ if __name__ == "__main__":
 
     #USNews
     #LiberalArts
-    filename = 'Zinfo_'+'USNews'+'_List.txt'
+    #QS
+    #TIMES
+    #usnews_school_engineering
+    #usnews_school_law
+    #usnews_school_business
+    #usnews_school_medical_primary_care
+    #usnews_school_medical_research
+    #usnews_school_fine_arts
+
+    #Alluniversity
+    
+    filename = 'Zinfo_'+'Alluniversity'+'_List.txt'
     file_object = open(filename)
     List = file_object.readlines()
     file_object.close()
-    
-    for i in List[99:]:
+    print len(List)
+
+    #x是1~436
+    x = 1
+    y = x
+    for i in List[y-1:]:
+        print '\n\n\n*****************************'
+        print 'University No.%d   '%x
+        print i[44:-2]
         UniversityStart(i[:-1]+'programs/')
-    
+        x=x+1
+        
 
 
 

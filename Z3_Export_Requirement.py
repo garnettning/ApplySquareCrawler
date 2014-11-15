@@ -57,7 +57,7 @@ for i in result:
     }
     Listall.append(dic)
 
-jsonStr = json.dumps(Listall);
+jsonStr = json.dumps(Listall,separators=(',',':'));
 
 file_object = open('ProgramInstanceRequirements.json', 'w')
 file_object.write(jsonStr)
